@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+   {% block body %}
+        <h1>This is Home page</h1>
+       <!-- <h2>{{fruits}}</h2>-->
+        <ul>
+            {% for fruit in fruits %}
+              <li>{{fruit}}</li>
+            {%endfor%}
+        </ul>
+        {% if 'mango' in fruits %}
+          <h2>Mango exits in list</h2>
+        {% endif %}
+        <img src={{url_for('static',filename="image.jpg")}} height="300" width="600" />
+    {% endblock %}
