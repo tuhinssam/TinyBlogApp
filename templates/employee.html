@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+  <div class="jumbotron">
+      <h3>Employee Details</h3>
+  </div>
+  <div>
+      <table border=1>
+        {% for emp in employee %}
+          <tr><td>{{emp[0]}}</td> <td>{{emp[1]}}</td></tr>
+        {% endfor %}  
+     </table>
+    <h4>{{msg}}</h4>
+  </div>
+{% endblock %}

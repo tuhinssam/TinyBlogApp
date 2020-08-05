@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect
+from flask import Flask, render_template, url_for, redirect, request
 from flask_bootstrap import Bootstrap
 from flask_mysqldb import MySQL
 import yaml
@@ -13,8 +13,10 @@ app.config['MYSQL_PASSWORD'] = db['mysql_password']
 app.config['MYSQL_DB'] = db['mysql_db']
 mysql = MySQL(app)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
+    if request.method == "POST":
+        return "password: "+request.form['password']+" successfully submitted."
     cur = mysql.connection.cursor()
     #cur.execute("INSERT INTO user VALUES(%s)",['Mike'])
     #mysql.connection.commit()
@@ -31,14 +33,41 @@ def index1():
     return render_template("index1.html", fruits = fruitsList)
     #return "Hello World!"
 
-@app.route('/about')
-def about():
-    #return "about page"
-    return render_template("about.html")
+@app.route('/adduser', methods=['GET'])
+def add_user():
+    cur = mysql.connection.cursor()
+    if cur.execute("INSERT INTO user(user_name) VALUES('Rahul')"):
+        mysql.connection.commit()
+        return 'success', 201
+    render_template('index.html')
 
-@app.route('/css')
-def css():
-    return render_template('css.html')
+@app.route('/register', methods=['GET','POST'])
+def register():
+    if request.method=='POST':
+        form = request.form
+        name = form['name']
+        age = form['age']
+        cur = mysql.connection.cursor()
+        if cur.execute("INSERT INTO employee(name,age) VALUES(%s,%s)",(name,age)):
+            mysql.connection.commit()
+            return render_template("register.html", msg = "Registration Successful")
+
+    return render_template("register.html")
+
+@app.route('/employee', methods=['GET','POST'])
+def employee():
+    if request.method=='GET':
+        cur = mysql.connection.cursor()
+        result_user = cur.execute("SELECT * FROM employee")
+        if result_user > 0:
+            emp = cur.fetchall()
+            return render_template("employee.html", employee=emp)
+
+    return render_template("employee.html")
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return "Page not Found: "+str(e)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
