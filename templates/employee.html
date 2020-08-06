@@ -4,10 +4,13 @@
       <h3>Employee Details</h3>
   </div>
   <div>
-      <table border=1>
+      <table class="table table-striped">
+          <thead><tr><th>Name</th><th>Age</th></tr></thead>
+          <tbody>
         {% for emp in employee %}
-          <tr><td>{{emp[0]}}</td> <td>{{emp[1]}}</td></tr>
-        {% endfor %}  
+          <tr><td>{{emp.name}}</td> <td>{{emp.age}}</td></tr>
+        {% endfor %}
+      </tbody>  
      </table>
     <h4>{{msg}}</h4>
   </div>
