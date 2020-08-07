@@ -67,12 +67,15 @@ def register():
                     flash("User successfully registered. Please login to continue",'success')
                     return redirect(url_for('login'))
                 else:
-                    flash("Password didn't match",'danger')
-                    return render_template("register.html", msg = "Password didn't match")
+                    flash("Unable to Register user! Please try again",'danger')
+                    #return render_template("register.html", msg = "Password didn't match")
+            else:
+                flash("Password didn't match!",'danger')
+
                     
     except Exception as e:
         print(e)
-        flash("Registration Unsuccessful!",'danger')
+        flash("Registration Unsuccessful: "+str(e),'danger')
         return render_template('register.html', msg = "Registration Unsuccessful!")
 
     return render_template("register.html")
@@ -114,8 +117,9 @@ def login():
             else:
                 return render_template("login.html",msg = "Login Failed! Please check your username or password")
         except Exception as e:
+            flash("login Unsuccessful: "+str(e),'danger')
             print("Error in login:"+str(e))
-            return render_template("login.html", msg = "An Unexpected Error has Occurred!")
+            return render_template("login.html")
 
     return render_template("login.html")
 
