@@ -4,11 +4,12 @@
       <h3>Employee Details</h3>
   </div>
   <div>
+      <h3>Hello {{session['name']}}</h3>
       <table class="table table-striped">
-          <thead><tr><th>Name</th><th>Age</th></tr></thead>
+          <thead><tr><th>Name</th><th>Introduction</th></tr></thead>
           <tbody>
         {% for emp in employee %}
-          <tr><td>{{emp.name}}</td> <td>{{emp.age}}</td></tr>
+          <tr><td>{{emp.name}}</td> <td>{{emp.introduction}}</td></tr>
         {% endfor %}
       </tbody>  
      </table>
