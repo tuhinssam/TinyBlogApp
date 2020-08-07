@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request, session
+from flask import Flask, render_template, url_for, redirect, request, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bootstrap import Bootstrap
 from flask_mysqldb import MySQL
@@ -64,11 +64,15 @@ def register():
                 hashed_password = generate_password_hash(password)
                 if cur.execute("INSERT INTO employee(name,age,username,password,introduction) VALUES(%s,%s,%s,%s,%s)",(name,age, username,hashed_password,introduction)):
                     mysql.connection.commit()
+                    flash("User successfully registered. Please login to continue",'success')
                     return redirect(url_for('login'))
                 else:
+                    flash("Password didn't match",'danger')
                     return render_template("register.html", msg = "Password didn't match")
+                    
     except Exception as e:
         print(e)
+        flash("Registration Unsuccessful!",'danger')
         return render_template('register.html', msg = "Registration Unsuccessful!")
 
     return render_template("register.html")
@@ -101,8 +105,11 @@ def login():
                 #print(result[0]['password'])
                 if check_password_hash(result[0]['password'],password)==True:
                     session['name'] = str(result[0]['name'])
+                    session['username'] = username
+                    
                     return redirect(url_for('employee'))
                 else:
+                    flash('Login Failed! Please check your username or password','danger')
                     return render_template("login.html",msg = "Login Failed! Please check your username or password")
             else:
                 return render_template("login.html",msg = "Login Failed! Please check your username or password")
@@ -112,6 +119,18 @@ def login():
 
     return render_template("login.html")
 
+@app.route('/settings',methods=['GET','POST'])
+def settings():
+    return render_template('settings.html')
+
+@app.route('/newblog',methods=['GET','POST'])
+def newblog():
+    return render_template('newblog.html')
+
+@app.route('/logout',methods=['GET','POST'])
+def logout():
+    session.clear()
+    return redirect(url_for('login'))
 
 @app.errorhandler(404)
 def page_not_found(e):
