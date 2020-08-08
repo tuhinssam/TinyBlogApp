@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
 {% block sub_content %}
   <div class="jumbotron">
-      <h3>Blogs by users</h3>
+      <h3>My Blogs</h3>
   </div>
   <div>
-      <h3>Hello {{session['name']}}, Check what others are talking about.</h3>
+      <h3>Hello {{session['name']}}, Here is your blogs you already published</h3>
       <table class="table table-striped">
-        <thead><tr><th>Blog Title</th><th>Published By</th><th>Date Published</th></tr></thead>
-        <tbody>
-          {% for blog in blogs %}
-            <tr><td>{{blog.title}}</td><td>{{blog.user}}</td><td>{{blog.timemodified}}</td></tr>
-          {% endfor %}
-        </tbody>  
+          <!--<thead><tr><th>Name</th><th>Introduction</th></tr></thead>-->
+          <tbody>
+        {% for blog in user_blogs %}
+          <tr><td>{{blog.title}}</td><td>{{blog.category}}</td><td>{{blog.likes}}</td> <td>{{blog.timecreated}}</td></tr>
+        {% endfor %}
+      </tbody>  
      </table>
      {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}

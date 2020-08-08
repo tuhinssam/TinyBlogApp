@@ -2,6 +2,7 @@ from flask import Flask, render_template, url_for, redirect, request, session, f
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bootstrap import Bootstrap
 from flask_mysqldb import MySQL
+from datetime import datetime
 import yaml
 import logging
 import os
@@ -21,16 +22,17 @@ app.config['SECRET_KEY'] = os.urandom(24) #this is required for creating session
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    if request.method == "POST":
-        return "password: "+request.form['password']+" successfully submitted."
-    cur = mysql.connection.cursor()
-    #cur.execute("INSERT INTO user VALUES(%s)",['Mike'])
-    #mysql.connection.commit()
-    result_user = cur.execute("SELECT * FROM user")
-    if result_user > 0:
-        users = cur.fetchall()
-        print(users)
-    return render_template('index.html')
+    try:
+        if request.method=='GET':
+            cur = mysql.connection.cursor()
+            result_blogs = cur.execute("SELECT * FROM blogs")
+            if result_blogs > 0:
+                blogs = cur.fetchall()
+                return render_template("index.html", blogs=blogs)
+            else:
+                flash("Currently there is no blog to load",'info')
+    except Exception as e:
+        flash("An Unexpected error has occurred: "+str(e),'danger')
 
 @app.route('/index1')
 def index1():
@@ -125,11 +127,101 @@ def login():
 
 @app.route('/settings',methods=['GET','POST'])
 def settings():
+    if request.method == 'GET':
+        try:
+            cur = mysql.connection.cursor()
+            username = session['username']
+            querystring = "SELECT * FROM employee WHERE username = '{}'".format(username)
+            result_user = cur.execute(querystring)
+            if result_user == 1:
+                emp = cur.fetchall()
+                return render_template("settings.html", employee=emp)
+        except Exception as e:
+            flash("An Unexpected Exception has occurred: "+str(e),'danger')
+    if request.method == 'POST':
+        try:
+            oldhashedpass = ""
+            cur = mysql.connection.cursor()
+            username = session['username']
+            querystring = "SELECT * FROM employee WHERE username = '{}'".format(username)
+            result_user = cur.execute(querystring)
+            if result_user == 1:
+                emp = cur.fetchall()
+                oldhashedpass = emp[0]['password']
+                _name = emp[0]['password']
+                _age = emp[0]['age']
+                _introduction = emp[0]['introduction']
+            form = request.form
+            username = session['username']
+            print(username)
+            name = form['name']
+
+            oldpassword = form['oldpassword']
+            print(oldpassword)
+            newpassword = form['newpassword']
+            print(newpassword)
+            repassword = form['repassword']
+            print(repassword)
+            age = form['age']
+            print(oldhashedpass)
+            introduction = form['introduction']
+            if check_password_hash(oldhashedpass,oldpassword)==False:
+               flash("Current password is not valid!",'warning')
+            else:
+                if newpassword == repassword:
+                    hashedPassword = generate_password_hash(newpassword)
+                    if cur.execute("update employee set name = %s, age = %s, password = %s, introduction=%s where username = %s",(name,age, hashedPassword,introduction,username)):
+                        mysql.connection.commit()
+                        flash("Settings updated successfully. Please login again.",'success')
+                    else:
+                        flash("Faliled to update settings! Please try again later",'danger')
+                else:
+                    flash("New password didn't match!",'warning')
+        except Exception as e:
+            flash("An Unexpected Exception has occurred: "+str(e),'danger')
     return render_template('settings.html')
 
 @app.route('/newblog',methods=['GET','POST'])
 def newblog():
+    try:
+        if request.method == 'POST':
+            form = request.form
+            title = form['title']
+            body = form['body']
+            timeCreated = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            timeModified = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            user = str(session['username'])
+            likes = 0
+            category = form['category']
+            cur = mysql.connection.cursor()
+            #queryString = "INSERT INTO blogs(title,body,timecreated,timemodified,user,likes,category) VALUES({0},{1},'{2}','{3}','{4}',{5},{6})".format(title,body,timeCreated,timeModified,user,likes,category)
+            #print(queryString)
+            if cur.execute("INSERT INTO blogs(title,body,timecreated,timemodified,user,likes,category) VALUES(%s,%s,%s,%s,%s,%s,%s)",(title,body,timeCreated,timeModified,user,likes,category)):
+                mysql.connection.commit()
+                flash("Your blog published Successfully",'success') 
+            else:
+                flash("Unable to create blog! Please try again",'danger')     
+
+    except Exception as e:
+        flash("Unable to create blog: "+str(e),'danger') 
+
     return render_template('newblog.html')
+
+@app.route('/myblogs',methods=['GET','POST'])
+def myblogs():
+    if request.method=='GET':
+        cur = mysql.connection.cursor()
+        username = session['username']
+        querystring = "SELECT * FROM blogs WHERE user = '{}'".format(username)
+        result_user = cur.execute(querystring)
+        if result_user > 0:
+            userBlogs = cur.fetchall()
+            flash(str(result_user)+' blogs loaded successfully.','success')
+            return render_template("myblogs.html", user_blogs=userBlogs)
+        else:
+            flash('You have not written any blog. Start writing now','info')
+
+    return render_template("myblogs.html")
 
 @app.route('/logout',methods=['GET','POST'])
 def logout():

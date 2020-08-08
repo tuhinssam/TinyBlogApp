@@ -7,9 +7,9 @@
     <form method="POST">
       <table class="table table-borderless">
           <tr><td>User Name:</td> <td>{{session['username']}}</td></tr>
-          <tr><td>Name:</td> <td><input type="text" name="username" value="{{session['name']}}"/></td></tr>
-          <tr><td>Current Password:</td> <td><input type="password" name="password"/></td></tr>
-          <tr><td>New Password:</td> <td><input type="password" name="repassword"/></td></tr>
+          <tr><td>Name:</td> <td><input type="text" name="name" value="{{session['name']}}"/></td></tr>
+          <tr><td>Current Password:</td> <td><input type="password" name="oldpassword"/></td></tr>
+          <tr><td>New Password:</td> <td><input type="password" name="newpassword"/></td></tr>
           <tr><td>Retype Password:</td> <td><input type="password" name="repassword"/></td></tr>
           <tr><td>Age:</td><td><input type="text" name="age"/></td></tr>
           <tr><td>Update Introduction:</td> <td><textarea id="Introduction" name="introduction" rows="4" cols="50"></textarea></td></tr>
@@ -19,6 +19,14 @@
           </tr>
      </table> 
     </form>
-    <h4>{{msg}}</h4>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+       <ul>
+           {% for category, msg in messages %}
+             <li class='alert alert-{{category}}'>{{msg}}</li>
+           {% endfor %}
+       </ul>
+     {% endif %}
+  {% endwith %}
   </div>
 {% endblock %}
