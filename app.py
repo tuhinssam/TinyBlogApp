@@ -3,12 +3,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_bootstrap import Bootstrap
 from flask_mysqldb import MySQL
 from datetime import datetime
+from flask_ckeditor import CKEditor
 import yaml
 import logging
 import os
 
 app = Flask(__name__)
 Bootstrap(app)
+CKEditor(app)
 
 db = yaml.load(open('db.yaml'))
 app.config['MYSQL_HOST'] = db['mysql_host']
@@ -66,6 +68,7 @@ def register():
                 hashed_password = generate_password_hash(password)
                 if cur.execute("INSERT INTO employee(name,age,username,password,introduction) VALUES(%s,%s,%s,%s,%s)",(name,age, username,hashed_password,introduction)):
                     mysql.connection.commit()
+                    cur.close()
                     flash("User successfully registered. Please login to continue",'success')
                     return redirect(url_for('login'))
                 else:
@@ -172,6 +175,7 @@ def settings():
                     hashedPassword = generate_password_hash(newpassword)
                     if cur.execute("update employee set name = %s, age = %s, password = %s, introduction=%s where username = %s",(name,age, hashedPassword,introduction,username)):
                         mysql.connection.commit()
+                        cur.close()
                         flash("Settings updated successfully. Please login again.",'success')
                     else:
                         flash("Faliled to update settings! Please try again later",'danger')
@@ -198,6 +202,7 @@ def newblog():
             #print(queryString)
             if cur.execute("INSERT INTO blogs(title,body,timecreated,timemodified,user,likes,category) VALUES(%s,%s,%s,%s,%s,%s,%s)",(title,body,timeCreated,timeModified,user,likes,category)):
                 mysql.connection.commit()
+                cur.close()
                 flash("Your blog published Successfully",'success') 
             else:
                 flash("Unable to create blog! Please try again",'danger')     
@@ -216,12 +221,64 @@ def myblogs():
         result_user = cur.execute(querystring)
         if result_user > 0:
             userBlogs = cur.fetchall()
+            cur.close()
             flash(str(result_user)+' blogs loaded successfully.','success')
             return render_template("myblogs.html", user_blogs=userBlogs)
         else:
             flash('You have not written any blog. Start writing now','info')
 
     return render_template("myblogs.html")
+
+@app.route('/blog/<int:id>/')
+def blog(id):
+    if request.method=='GET':
+        cur = mysql.connection.cursor()
+        querystring = "SELECT * FROM blogs WHERE id = '{}'".format(id)
+        result_blog = cur.execute(querystring)
+        if result_blog > 0:
+            userBlog = cur.fetchone()
+            cur.close()
+            flash(str(result_blog)+' blog loaded successfully.','success')
+            return render_template("blog.html", blog=userBlog)
+    return render_template("blog.html")
+
+@app.route('/editblog/<int:id>/', methods=['GET','POST'])
+def editblog(id):
+    if request.method == 'POST':
+        cur = mysql.connection.cursor()
+        title = request.form['title']
+        body = request.form['body']
+        timemodified = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        category = request.form['category']
+        cur.execute("UPDATE blogs SET title = %s, body = %s, category = %s where id = %s",(title, body, category, id))
+        mysql.connection.commit()
+        cur.close()
+        flash('Blog updated successfully', 'success')
+        return redirect('/blog/{}/'.format(id))
+    cur = mysql.connection.cursor()
+    result_value = cur.execute("SELECT * FROM blogs WHERE id = {}".format(id))
+    if result_value > 0:
+        blog = cur.fetchone()
+        blog_dict = {}
+        blog_dict['title'] = blog['title']
+        blog_dict['body'] = blog['body']
+        blog_dict['category'] = blog['category']
+        return render_template('editblog.html', blog=blog_dict)
+    return render_template('editblog.html')
+
+@app.route('/deleteblog/<int:id>/', methods=['GET','POST'])
+def deleteblog(id):
+    try:
+        cur = mysql.connection.cursor()
+        querystring = "DELETE FROM blogs WHERE id = {}".format(id)
+        cur.execute(querystring)
+        mysql.connection.commit()
+        cur.close()
+        flash('blog successfully deleted.','success')
+        return redirect('myblogs.html')
+    except Exception as e:
+        flash('Failed to delete the blog: '+str(e), 'info')
+    return redirect('myblogs.html')
 
 @app.route('/logout',methods=['GET','POST'])
 def logout():

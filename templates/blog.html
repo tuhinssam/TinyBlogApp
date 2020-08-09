@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block sub_content %}
+  <div class="jumbotron">
+      <h3>{{blog.title}}</h3>
+  </div>
+  <div>
+      <table class="table table-borderless">
+          <tr><td><b>Blog published at: </b>{{blog.timemodified}}</td></tr>
+          <tr><td><b>Category: </b>{{blog.category}}</td></tr>
+          <tr><td><b>Blog:</b></td></tr>
+          <tr><td>{{blog.body | safe}}</td></tr>
+     </table>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+       <ul>
+           {% for category, msg in messages %}
+             <li class='alert alert-{{category}}'>{{msg}}</li>
+           {% endfor %}
+       </ul>
+     {% endif %}
+  {% endwith %}
+  </div>
+{% endblock %}

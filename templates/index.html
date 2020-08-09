@@ -6,10 +6,10 @@
   <div>
       <h3>Hello {{session['name']}}, Check what others are talking about.</h3>
       <table class="table table-striped">
-        <thead><tr><th>Blog Title</th><th>Published By</th><th>Date Published</th></tr></thead>
+        <thead><tr><th>Blog Title</th><th>Published By</th><th>Category</th><th>Likes</th><th>Date Published</th></tr></thead>
         <tbody>
           {% for blog in blogs %}
-            <tr><td>{{blog.title}}</td><td>{{blog.user}}</td><td>{{blog.timemodified}}</td></tr>
+            <tr><td><a href="/blog/{{blog.id}}">{{blog.title}}</a></td><td>{{blog.user}}</td><td>{{blog.category}}</td><td>{{blog.likes}}</td><td>{{blog.timemodified}}</td></tr>
           {% endfor %}
         </tbody>  
      </table>

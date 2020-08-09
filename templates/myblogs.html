@@ -6,10 +6,17 @@
   <div>
       <h3>Hello {{session['name']}}, Here is your blogs you already published</h3>
       <table class="table table-striped">
-          <!--<thead><tr><th>Name</th><th>Introduction</th></tr></thead>-->
+          <thead><tr><th>Blog Title</th><th>Category</th><th>Likes</th><th>TimeCreated</th><th></th></tr></thead>
           <tbody>
         {% for blog in user_blogs %}
-          <tr><td>{{blog.title}}</td><td>{{blog.category}}</td><td>{{blog.likes}}</td> <td>{{blog.timecreated}}</td></tr>
+          <tr>
+            <td><a href="/blog/{{blog.id}}">{{blog.title}}</a></td>
+            <td>{{blog.category}}</td>
+            <td>{{blog.likes}}</td>
+            <td>{{blog.timecreated}}</td>
+            <td><a href="/editblog/{{blog.id}}" class="btn btn-primary">Edit</a></td>
+            <td><a href="/deleteblog/{{blog.id}}" class="btn btn-danger">Delete</a></td>
+          </tr>
         {% endfor %}
       </tbody>  
      </table>
