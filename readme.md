@@ -18,16 +18,16 @@
 1. Create a Virtual env using command 'virtualenv {venvname}'. Move into the virtual env using '{venvname}\Scripts\Activate'
 2. install all the requirements using "pip install -r 'requirements.txt'"
 3. run the project using 'python app.py'
-4. Modifyu the database related information in db.yaml
+4. Modify the database related information in db.yaml
 5. I will share db dump shortly
 
 ### Whats Next:
 Next is to Build API to access the information:
 1. Basic authentication using API
 2. Read (GET) user Blogs after authentication
-3. Careate (POST) User Blogs after authentication
-4. update (PUT) User Blogs after authentication
-5. delete (DELETE) User Blogs after authentication
+3. Create (POST) User Blogs after authentication
+4. Update (PUT) User Blogs after authentication
+5. Delete (DELETE) User Blogs after authentication
 
 
 ### development is in progress...
