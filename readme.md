@@ -12,7 +12,7 @@
 2. Flask_bootstrap is used for frontend design
 3. flask_ckeditor module used for rich text formatting experiance
 4. workzeug.security used for password hasing and de-hashing
-5. used puthon logging for logging module for logging purpose
+5. used python logging for logging module for logging purpose
 
 ### How to use:
 1. Create a Virtual env using command 'virtualenv {venvname}'. Move into the virtual env using '{venvname}\Scripts\Activate'
