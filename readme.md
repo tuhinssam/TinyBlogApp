@@ -15,9 +15,11 @@
 5. used puthon logging for logging module for logging purpose
 
 ### How to use:
-1. install all the requirements using "pip install -r 'requirements.txt'"
-2. Modifyu the database related information in db.yaml
-3. I will share db dump shortly
+1. Create a Virtual env using command 'virtualenv {venvname}'. Move into the virtual env using '{venvname}\Scripts\Activate'
+2. install all the requirements using "pip install -r 'requirements.txt'"
+3. run the project using 'python app.py'
+4. Modifyu the database related information in db.yaml
+5. I will share db dump shortly
 
 ### Whats Next:
 Next is to Build API to access the information:

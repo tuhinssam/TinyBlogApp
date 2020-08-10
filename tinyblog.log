@@ -20,3 +20,115 @@
 2020-08-10 11:38:17,871 - INFO - 127.0.0.1 - - [10/Aug/2020 11:38:17] "[37mGET /myblogs HTTP/1.1[0m" 200 -
 2020-08-10 11:38:18,057 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
 2020-08-10 11:38:18,057 - INFO - 127.0.0.1 - - [10/Aug/2020 11:38:18] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:00:36,170 - DEBUG - Database initialization started..
+2020-08-10 12:00:36,177 - DEBUG - Database initialization finished.
+2020-08-10 12:00:36,216 - INFO -  * Restarting with stat
+2020-08-10 12:00:36,842 - DEBUG - Database initialization started..
+2020-08-10 12:00:36,844 - DEBUG - Database initialization finished.
+2020-08-10 12:00:36,861 - WARNING -  * Debugger is active!
+2020-08-10 12:00:36,870 - INFO -  * Debugger PIN: 225-290-844
+2020-08-10 12:00:36,878 - INFO -  * Running on http://127.0.0.1:5001/ (Press CTRL+C to quit)
+2020-08-10 12:00:52,813 - INFO - 127.0.0.1 - - [10/Aug/2020 12:00:52] "[37mGET / HTTP/1.1[0m" 200 -
+2020-08-10 12:00:53,329 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:00:53,329 - INFO - 127.0.0.1 - - [10/Aug/2020 12:00:53] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:01:13,170 - INFO - 127.0.0.1 - - [10/Aug/2020 12:01:13] "[37mGET /login HTTP/1.1[0m" 200 -
+2020-08-10 12:01:13,458 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:01:13,458 - INFO - 127.0.0.1 - - [10/Aug/2020 12:01:13] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:01:26,616 - WARNING - login failed for username: tuhinssam and password: Samanyta123#
+2020-08-10 12:01:26,617 - INFO - 127.0.0.1 - - [10/Aug/2020 12:01:26] "[37mPOST /login HTTP/1.1[0m" 200 -
+2020-08-10 12:01:27,100 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:01:27,101 - INFO - 127.0.0.1 - - [10/Aug/2020 12:01:27] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:01:35,043 - INFO - user successfully logged in username: tuhinssam
+2020-08-10 12:01:35,045 - INFO - 127.0.0.1 - - [10/Aug/2020 12:01:35] "[32mPOST /login HTTP/1.1[0m" 302 -
+2020-08-10 12:01:35,188 - INFO - 127.0.0.1 - - [10/Aug/2020 12:01:35] "[37mGET /employee HTTP/1.1[0m" 200 -
+2020-08-10 12:01:35,716 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:01:35,716 - INFO - 127.0.0.1 - - [10/Aug/2020 12:01:35] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:01:49,352 - INFO - 127.0.0.1 - - [10/Aug/2020 12:01:49] "[37mGET /myblogs HTTP/1.1[0m" 200 -
+2020-08-10 12:01:49,637 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:01:49,637 - INFO - 127.0.0.1 - - [10/Aug/2020 12:01:49] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:01:51,338 - INFO - 127.0.0.1 - - [10/Aug/2020 12:01:51] "[37mGET /newblog HTTP/1.1[0m" 200 -
+2020-08-10 12:01:51,650 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:01:51,650 - INFO - 127.0.0.1 - - [10/Aug/2020 12:01:51] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:01:58,163 - INFO - 127.0.0.1 - - [10/Aug/2020 12:01:58] "[37mGET /settings HTTP/1.1[0m" 200 -
+2020-08-10 12:01:58,448 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:01:58,449 - INFO - 127.0.0.1 - - [10/Aug/2020 12:01:58] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:02:00,908 - INFO - 127.0.0.1 - - [10/Aug/2020 12:02:00] "[37mGET /myblogs HTTP/1.1[0m" 200 -
+2020-08-10 12:02:01,096 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:02:01,097 - INFO - 127.0.0.1 - - [10/Aug/2020 12:02:01] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:04:34,633 - INFO - 127.0.0.1 - - [10/Aug/2020 12:04:34] "[37mGET /settings HTTP/1.1[0m" 200 -
+2020-08-10 12:04:35,050 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:04:35,050 - INFO - 127.0.0.1 - - [10/Aug/2020 12:04:35] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:04:35,751 - INFO - 127.0.0.1 - - [10/Aug/2020 12:04:35] "[37mGET /myblogs HTTP/1.1[0m" 200 -
+2020-08-10 12:04:36,048 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:04:36,048 - INFO - 127.0.0.1 - - [10/Aug/2020 12:04:36] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:04:37,073 - INFO - 127.0.0.1 - - [10/Aug/2020 12:04:37] "[37mGET /newblog HTTP/1.1[0m" 200 -
+2020-08-10 12:04:37,463 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:04:37,463 - INFO - 127.0.0.1 - - [10/Aug/2020 12:04:37] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:04:38,970 - INFO - 127.0.0.1 - - [10/Aug/2020 12:04:38] "[35m[1mGET /logout HTTP/1.1[0m" 500 -
+2020-08-10 12:04:39,240 - INFO - 127.0.0.1 - - [10/Aug/2020 12:04:39] "[37mGET /logout?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 200 -
+2020-08-10 12:04:39,314 - INFO - 127.0.0.1 - - [10/Aug/2020 12:04:39] "[37mGET /logout?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 200 -
+2020-08-10 12:04:39,354 - INFO - 127.0.0.1 - - [10/Aug/2020 12:04:39] "[37mGET /logout?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1[0m" 200 -
+2020-08-10 12:04:39,728 - INFO - 127.0.0.1 - - [10/Aug/2020 12:04:39] "[37mGET /logout?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1[0m" 200 -
+2020-08-10 12:04:39,742 - INFO - 127.0.0.1 - - [10/Aug/2020 12:04:39] "[37mGET /logout?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 200 -
+2020-08-10 12:04:39,972 - INFO - 127.0.0.1 - - [10/Aug/2020 12:04:39] "[37mGET /logout?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 200 -
+2020-08-10 12:04:49,826 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:04:49,826 - INFO - 127.0.0.1 - - [10/Aug/2020 12:04:49] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:05:07,905 - INFO - 127.0.0.1 - - [10/Aug/2020 12:05:07] "[35m[1mGET /logout HTTP/1.1[0m" 500 -
+2020-08-10 12:05:08,198 - INFO - 127.0.0.1 - - [10/Aug/2020 12:05:08] "[37mGET /logout?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 200 -
+2020-08-10 12:05:08,231 - INFO - 127.0.0.1 - - [10/Aug/2020 12:05:08] "[37mGET /logout?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1[0m" 200 -
+2020-08-10 12:05:08,233 - INFO - 127.0.0.1 - - [10/Aug/2020 12:05:08] "[37mGET /logout?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 200 -
+2020-08-10 12:05:08,592 - INFO - 127.0.0.1 - - [10/Aug/2020 12:05:08] "[37mGET /logout?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1[0m" 200 -
+2020-08-10 12:05:08,595 - INFO - 127.0.0.1 - - [10/Aug/2020 12:05:08] "[37mGET /logout?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 200 -
+2020-08-10 12:05:13,425 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:05:13,425 - INFO - 127.0.0.1 - - [10/Aug/2020 12:05:13] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:05:16,164 - INFO - 127.0.0.1 - - [10/Aug/2020 12:05:16] "[35m[1mGET /logout HTTP/1.1[0m" 500 -
+2020-08-10 12:05:16,454 - INFO - 127.0.0.1 - - [10/Aug/2020 12:05:16] "[37mGET /logout?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 200 -
+2020-08-10 12:05:16,495 - INFO - 127.0.0.1 - - [10/Aug/2020 12:05:16] "[37mGET /logout?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1[0m" 200 -
+2020-08-10 12:05:16,495 - INFO - 127.0.0.1 - - [10/Aug/2020 12:05:16] "[37mGET /logout?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 200 -
+2020-08-10 12:05:16,830 - INFO - 127.0.0.1 - - [10/Aug/2020 12:05:16] "[37mGET /logout?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1[0m" 200 -
+2020-08-10 12:05:16,860 - INFO - 127.0.0.1 - - [10/Aug/2020 12:05:16] "[37mGET /logout?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 200 -
+2020-08-10 12:07:54,014 - INFO -  * Detected change in 'C:\\Users\\tuhin.samanta\\Desktop\\Personal\\Personal POC\\Flask\\FlaskDemo\\app.py', reloading
+2020-08-10 12:07:54,053 - INFO -  * Restarting with stat
+2020-08-10 12:07:54,820 - DEBUG - Database initialization started..
+2020-08-10 12:07:54,823 - DEBUG - Database initialization finished.
+2020-08-10 12:07:54,852 - WARNING -  * Debugger is active!
+2020-08-10 12:07:54,867 - INFO -  * Debugger PIN: 225-290-844
+2020-08-10 12:07:54,928 - INFO -  * Running on http://127.0.0.1:5001/ (Press CTRL+C to quit)
+2020-08-10 12:08:01,637 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:01] "[35m[1mGET /logout HTTP/1.1[0m" 500 -
+2020-08-10 12:08:01,667 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:01] "[37mGET /logout?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 200 -
+2020-08-10 12:08:01,880 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:01] "[37mGET /logout?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1[0m" 200 -
+2020-08-10 12:08:01,970 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:01] "[37mGET /logout?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 200 -
+2020-08-10 12:08:02,311 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:02] "[37mGET /logout?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1[0m" 200 -
+2020-08-10 12:08:02,321 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:02] "[37mGET /logout?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 200 -
+2020-08-10 12:08:03,831 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:08:03,832 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:03] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:08:05,090 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:05] "[35m[1mGET /logout HTTP/1.1[0m" 500 -
+2020-08-10 12:08:05,408 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:05] "[37mGET /logout?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 200 -
+2020-08-10 12:08:05,437 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:05] "[37mGET /logout?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 200 -
+2020-08-10 12:08:05,437 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:05] "[37mGET /logout?__debugger__=yes&cmd=resource&f=jquery.js HTTP/1.1[0m" 200 -
+2020-08-10 12:08:05,800 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:05] "[37mGET /logout?__debugger__=yes&cmd=resource&f=ubuntu.ttf HTTP/1.1[0m" 200 -
+2020-08-10 12:08:05,804 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:05] "[37mGET /logout?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 200 -
+2020-08-10 12:08:20,452 - DEBUG - Database initialization started..
+2020-08-10 12:08:20,454 - DEBUG - Database initialization finished.
+2020-08-10 12:08:20,494 - INFO -  * Restarting with stat
+2020-08-10 12:08:21,137 - DEBUG - Database initialization started..
+2020-08-10 12:08:21,140 - DEBUG - Database initialization finished.
+2020-08-10 12:08:21,162 - WARNING -  * Debugger is active!
+2020-08-10 12:08:21,174 - INFO -  * Debugger PIN: 225-290-844
+2020-08-10 12:08:21,183 - INFO -  * Running on http://127.0.0.1:5001/ (Press CTRL+C to quit)
+2020-08-10 12:08:26,733 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:26] "[37mGET / HTTP/1.1[0m" 200 -
+2020-08-10 12:08:27,184 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:08:27,184 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:27] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:08:28,693 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:28] "[37mGET /login HTTP/1.1[0m" 200 -
+2020-08-10 12:08:28,988 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:08:28,989 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:28] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:08:36,698 - INFO - user successfully logged in username: tuhinssam
+2020-08-10 12:08:36,699 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:36] "[32mPOST /login HTTP/1.1[0m" 302 -
+2020-08-10 12:08:36,711 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:36] "[37mGET /employee HTTP/1.1[0m" 200 -
+2020-08-10 12:08:37,130 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:08:37,131 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:37] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -
+2020-08-10 12:08:38,701 - INFO - user tuhinssam logged out from system
+2020-08-10 12:08:38,702 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:38] "[32mGET /logout HTTP/1.1[0m" 302 -
+2020-08-10 12:08:38,706 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:38] "[37mGET /login HTTP/1.1[0m" 200 -
+2020-08-10 12:08:38,951 - ERROR - An Unhandled exception has occurred: 404 Not Found: The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.
+2020-08-10 12:08:38,951 - INFO - 127.0.0.1 - - [10/Aug/2020 12:08:38] "[37mGET /favicon.ico HTTP/1.1[0m" 200 -

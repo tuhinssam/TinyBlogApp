@@ -311,8 +311,8 @@ def deleteblog(id):
 
 @app.route('/logout',methods=['GET','POST'])
 def logout():
-    session.clear()
     logging.info("user {} logged out from system".format(session['username']))
+    session.clear()
     return redirect(url_for('login'))
 
 @app.errorhandler(404)
