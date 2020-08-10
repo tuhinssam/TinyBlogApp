@@ -11,6 +11,8 @@ import os
 app = Flask(__name__)
 Bootstrap(app)
 CKEditor(app)
+
+#logging configuration
 logging.basicConfig(filename="tinyblog.log",level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
 logging.debug('Database initialization started..')
@@ -25,10 +27,11 @@ logging.debug('Database initialization finished.')
 
 app.config['SECRET_KEY'] = os.urandom(24) #this is required for creating session var
 
-'''
-'''
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    '''
+    placeholder for docstring
+    '''
     try:
         if request.method=='GET':
             cur = mysql.connection.cursor()
@@ -60,6 +63,9 @@ def add_user():
 
 @app.route('/register', methods=['GET','POST'])
 def register():
+    '''
+    placeholder for docstring
+    '''
     try:
         if request.method=='POST':
             form = request.form
@@ -92,10 +98,11 @@ def register():
 
     return render_template("register.html")
 
-'''
-'''
 @app.route('/employee', methods=['GET','POST'])
 def employee():
+    '''
+    placeholder for docstring
+    '''
     if session.get('isloggedin') != True:
         flash("Your session has been reset. Please login to continue.",'info')
         return redirect(url_for('login'))
@@ -114,6 +121,9 @@ def employee():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
+    '''
+    placeholder for docstring
+    '''
     if request.method=='POST':
         try:
             form = request.form
@@ -150,6 +160,9 @@ def login():
 
 @app.route('/settings',methods=['GET','POST'])
 def settings():
+    '''
+    placeholder for docstring
+    '''
     if session.get('isloggedin') != True:
         flash("Your session has been reset. Please login to continue.",'info')
         return redirect(url_for('login'))
@@ -215,6 +228,9 @@ def settings():
 
 @app.route('/newblog',methods=['GET','POST'])
 def newblog():
+    '''
+    placeholder for docstring
+    '''
     if session.get('isloggedin') != True:
         flash("Your session has been reset. Please login to continue.",'info')
         return redirect(url_for('login'))
@@ -246,6 +262,9 @@ def newblog():
 
 @app.route('/myblogs',methods=['GET','POST'])
 def myblogs():
+    '''
+    placeholder for docstring
+    '''
     if session.get('isloggedin') != True:
         flash("Your session has been reset. Please login to continue.",'info')
         return redirect(url_for('login'))
@@ -269,6 +288,9 @@ def myblogs():
 
 @app.route('/blog/<int:id>/')
 def blog(id):
+    '''
+    placeholder for docstring
+    '''
     if session.get('isloggedin') != True:
         flash("Your session has been reset. Please login to continue.",'info')
         return redirect(url_for('login'))
@@ -288,6 +310,9 @@ def blog(id):
 
 @app.route('/editblog/<int:id>/', methods=['GET','POST'])
 def editblog(id):
+    '''
+    placeholder for docstring
+    '''
     if session.get('isloggedin') != True:
         flash("Your session has been reset. Please login to continue.",'info')
         return redirect(url_for('login'))
@@ -318,6 +343,9 @@ def editblog(id):
 
 @app.route('/deleteblog/<int:id>/', methods=['GET','POST'])
 def deleteblog(id):
+    '''
+    placeholder for docstring
+    '''
     if session.get('isloggedin') != True:
         flash("Your session has been reset. Please login to continue.",'info')
         return redirect(url_for('login'))
@@ -336,6 +364,9 @@ def deleteblog(id):
 
 @app.route('/logout',methods=['GET','POST'])
 def logout():
+    '''
+    placeholder for docstring
+    '''
     if session.get('isloggedin') != True:
         flash("Your session has been reset. Please login to continue.",'info')
         return redirect(url_for('login'))
