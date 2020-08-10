@@ -96,8 +96,13 @@ def register():
 '''
 @app.route('/employee', methods=['GET','POST'])
 def employee():
+    if session.get('isloggedin') != True:
+        flash("Your session has been reset. Please login to continue.",'info')
+        return redirect(url_for('login'))
+
     try:
         if request.method=='GET':
+            
             cur = mysql.connection.cursor()
             result_user = cur.execute("SELECT * FROM employee")
             if result_user > 0:
@@ -114,6 +119,7 @@ def login():
             form = request.form
             username = form['username']
             password = form['password']
+            
             cur = mysql.connection.cursor()
             querystring = "SELECT * FROM employee WHERE username = '{}'".format(username)
             print(querystring)
@@ -125,6 +131,7 @@ def login():
                 if check_password_hash(result[0]['password'],password)==True:
                     session['name'] = str(result[0]['name'])
                     session['username'] = username
+                    session['isloggedin'] = True
                     logging.info("user successfully logged in username: {}".format(username))
                     return redirect(url_for('employee'))
                 else:
@@ -143,6 +150,9 @@ def login():
 
 @app.route('/settings',methods=['GET','POST'])
 def settings():
+    if session.get('isloggedin') != True:
+        flash("Your session has been reset. Please login to continue.",'info')
+        return redirect(url_for('login'))
     if request.method == 'GET':
         try:
             cur = mysql.connection.cursor()
@@ -205,6 +215,9 @@ def settings():
 
 @app.route('/newblog',methods=['GET','POST'])
 def newblog():
+    if session.get('isloggedin') != True:
+        flash("Your session has been reset. Please login to continue.",'info')
+        return redirect(url_for('login'))
     try:
         if request.method == 'POST':
             form = request.form
@@ -233,6 +246,9 @@ def newblog():
 
 @app.route('/myblogs',methods=['GET','POST'])
 def myblogs():
+    if session.get('isloggedin') != True:
+        flash("Your session has been reset. Please login to continue.",'info')
+        return redirect(url_for('login'))
     try:
         if request.method=='GET':
             cur = mysql.connection.cursor()
@@ -253,6 +269,9 @@ def myblogs():
 
 @app.route('/blog/<int:id>/')
 def blog(id):
+    if session.get('isloggedin') != True:
+        flash("Your session has been reset. Please login to continue.",'info')
+        return redirect(url_for('login'))
     if request.method=='GET':
         try:
             cur = mysql.connection.cursor()
@@ -269,6 +288,9 @@ def blog(id):
 
 @app.route('/editblog/<int:id>/', methods=['GET','POST'])
 def editblog(id):
+    if session.get('isloggedin') != True:
+        flash("Your session has been reset. Please login to continue.",'info')
+        return redirect(url_for('login'))
     try:
         if request.method == 'POST':
             cur = mysql.connection.cursor()
@@ -296,6 +318,9 @@ def editblog(id):
 
 @app.route('/deleteblog/<int:id>/', methods=['GET','POST'])
 def deleteblog(id):
+    if session.get('isloggedin') != True:
+        flash("Your session has been reset. Please login to continue.",'info')
+        return redirect(url_for('login'))
     try:
         cur = mysql.connection.cursor()
         querystring = "DELETE FROM blogs WHERE id = {}".format(id)
@@ -311,8 +336,12 @@ def deleteblog(id):
 
 @app.route('/logout',methods=['GET','POST'])
 def logout():
+    if session.get('isloggedin') != True:
+        flash("Your session has been reset. Please login to continue.",'info')
+        return redirect(url_for('login'))
     logging.info("user {} logged out from system".format(session['username']))
     session.clear()
+    flash("You have logged out successfully!",'info')
     return redirect(url_for('login'))
 
 @app.errorhandler(404)
