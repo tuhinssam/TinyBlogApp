@@ -14,6 +14,11 @@
 4. workzeug.security used for password hasing and de-hashing
 5. used puthon logging for logging module for logging purpose
 
+### How to use:
+1. install all the requirements using "pip install -r 'requirements.txt'"
+2. Modifyu the database related information in db.yaml
+3. I will share db dump shortly
+
 ### Whats Next:
 Next is to Build API to access the information:
 1. Basic authentication using API
