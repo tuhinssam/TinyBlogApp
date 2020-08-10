@@ -11,7 +11,9 @@ import os
 app = Flask(__name__)
 Bootstrap(app)
 CKEditor(app)
+logging.basicConfig(filename="tinyblog.log",level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
+logging.debug('Database initialization started..')
 db = yaml.load(open('db.yaml'))
 app.config['MYSQL_HOST'] = db['mysql_host']
 app.config['MYSQL_USER'] = db['mysql_user']
@@ -19,9 +21,12 @@ app.config['MYSQL_PASSWORD'] = db['mysql_password']
 app.config['MYSQL_DB'] = db['mysql_db']
 app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 mysql = MySQL(app)
+logging.debug('Database initialization finished.')
 
 app.config['SECRET_KEY'] = os.urandom(24) #this is required for creating session var
 
+'''
+'''
 @app.route('/', methods=['GET', 'POST'])
 def index():
     try:
@@ -30,10 +35,12 @@ def index():
             result_blogs = cur.execute("SELECT * FROM blogs")
             if result_blogs > 0:
                 blogs = cur.fetchall()
+                cur.close()
                 return render_template("index.html", blogs=blogs)
             else:
                 flash("Currently there is no blog to load",'info')
     except Exception as e:
+        logging.error("inside index: "+str(e))
         flash("An Unexpected error has occurred: "+str(e),'danger')
 
 @app.route('/index1')
@@ -79,21 +86,25 @@ def register():
 
                     
     except Exception as e:
-        print(e)
+        logging.error("inside register: "+str(e))
         flash("Registration Unsuccessful: "+str(e),'danger')
         return render_template('register.html', msg = "Registration Unsuccessful!")
 
     return render_template("register.html")
 
+'''
+'''
 @app.route('/employee', methods=['GET','POST'])
 def employee():
-    if request.method=='GET':
-        cur = mysql.connection.cursor()
-        result_user = cur.execute("SELECT * FROM employee")
-        if result_user > 0:
-            emp = cur.fetchall()
-            return render_template("employee.html", employee=emp)
-
+    try:
+        if request.method=='GET':
+            cur = mysql.connection.cursor()
+            result_user = cur.execute("SELECT * FROM employee")
+            if result_user > 0:
+                emp = cur.fetchall()
+                return render_template("employee.html", employee=emp)
+    except Exception as e:
+        logging.error("inside employe: "+str(e))
     return render_template("employee.html")
 
 @app.route('/login', methods=['GET','POST'])
@@ -114,16 +125,18 @@ def login():
                 if check_password_hash(result[0]['password'],password)==True:
                     session['name'] = str(result[0]['name'])
                     session['username'] = username
-                    
+                    logging.info("user successfully logged in username: {}".format(username))
                     return redirect(url_for('employee'))
                 else:
+                    logging.warning("login failed for username: {} and password: {}".format(username, password))
                     flash('Login Failed! Please check your username or password','danger')
                     return render_template("login.html",msg = "Login Failed! Please check your username or password")
             else:
+                logging.warning("failedlog in attempt for username: {} and password: {}".format(username, password))
                 return render_template("login.html",msg = "Login Failed! Please check your username or password")
         except Exception as e:
             flash("login Unsuccessful: "+str(e),'danger')
-            print("Error in login:"+str(e))
+            logging.error("inside login: "+str(e))
             return render_template("login.html")
 
     return render_template("login.html")
@@ -138,8 +151,10 @@ def settings():
             result_user = cur.execute(querystring)
             if result_user == 1:
                 emp = cur.fetchall()
+                cur.close()
                 return render_template("settings.html", employee=emp)
         except Exception as e:
+            logging.error("inside settings: "+str(e))
             flash("An Unexpected Exception has occurred: "+str(e),'danger')
     if request.method == 'POST':
         try:
@@ -156,7 +171,6 @@ def settings():
                 _introduction = emp[0]['introduction']
             form = request.form
             username = session['username']
-            print(username)
             name = form['name']
 
             oldpassword = form['oldpassword']
@@ -169,19 +183,23 @@ def settings():
             print(oldhashedpass)
             introduction = form['introduction']
             if check_password_hash(oldhashedpass,oldpassword)==False:
-               flash("Current password is not valid!",'warning')
+                logging.warning("Current password is not valid for user: {}".format(session['username']))
+                flash("Current password is not valid!",'warning')
             else:
                 if newpassword == repassword:
                     hashedPassword = generate_password_hash(newpassword)
                     if cur.execute("update employee set name = %s, age = %s, password = %s, introduction=%s where username = %s",(name,age, hashedPassword,introduction,username)):
                         mysql.connection.commit()
                         cur.close()
+                        logging.warning("password modified for user: {}".format(session['username']))
                         flash("Settings updated successfully. Please login again.",'success')
                     else:
+                        logging.warning("Faliled to update settings for user: {}".format(session['username']))
                         flash("Faliled to update settings! Please try again later",'danger')
                 else:
                     flash("New password didn't match!",'warning')
         except Exception as e:
+            logging.error("inside settings: "+str(e))
             flash("An Unexpected Exception has occurred: "+str(e),'danger')
     return render_template('settings.html')
 
@@ -208,62 +226,72 @@ def newblog():
                 flash("Unable to create blog! Please try again",'danger')     
 
     except Exception as e:
+        logging.error("inside newblog: "+str(e))
         flash("Unable to create blog: "+str(e),'danger') 
 
     return render_template('newblog.html')
 
 @app.route('/myblogs',methods=['GET','POST'])
 def myblogs():
-    if request.method=='GET':
-        cur = mysql.connection.cursor()
-        username = session['username']
-        querystring = "SELECT * FROM blogs WHERE user = '{}'".format(username)
-        result_user = cur.execute(querystring)
-        if result_user > 0:
-            userBlogs = cur.fetchall()
-            cur.close()
-            flash(str(result_user)+' blogs loaded successfully.','success')
-            return render_template("myblogs.html", user_blogs=userBlogs)
-        else:
-            flash('You have not written any blog. Start writing now','info')
+    try:
+        if request.method=='GET':
+            cur = mysql.connection.cursor()
+            username = session['username']
+            querystring = "SELECT * FROM blogs WHERE user = '{}'".format(username)
+            result_user = cur.execute(querystring)
+            if result_user > 0:
+                userBlogs = cur.fetchall()
+                cur.close()
+                flash(str(result_user)+' blogs loaded successfully.','success')
+                return render_template("myblogs.html", user_blogs=userBlogs)
+            else:
+                flash('You have not written any blog. Start writing now','info')
+    except Exception as e:
+        logging.error("inside myblogs: "+str(e))
 
     return render_template("myblogs.html")
 
 @app.route('/blog/<int:id>/')
 def blog(id):
     if request.method=='GET':
-        cur = mysql.connection.cursor()
-        querystring = "SELECT * FROM blogs WHERE id = '{}'".format(id)
-        result_blog = cur.execute(querystring)
-        if result_blog > 0:
-            userBlog = cur.fetchone()
-            cur.close()
-            flash(str(result_blog)+' blog loaded successfully.','success')
-            return render_template("blog.html", blog=userBlog)
+        try:
+            cur = mysql.connection.cursor()
+            querystring = "SELECT * FROM blogs WHERE id = '{}'".format(id)
+            result_blog = cur.execute(querystring)
+            if result_blog > 0:
+                userBlog = cur.fetchone()
+                cur.close()
+                flash(str(result_blog)+' blog loaded successfully.','success')
+                return render_template("blog.html", blog=userBlog)
+        except Exception as e:
+            logging.error("inside blog: "+str(e))
     return render_template("blog.html")
 
 @app.route('/editblog/<int:id>/', methods=['GET','POST'])
 def editblog(id):
-    if request.method == 'POST':
+    try:
+        if request.method == 'POST':
+            cur = mysql.connection.cursor()
+            title = request.form['title']
+            body = request.form['body']
+            timemodified = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            category = request.form['category']
+            cur.execute("UPDATE blogs SET title = %s, body = %s, category = %s where id = %s",(title, body, category, id))
+            mysql.connection.commit()
+            cur.close()
+            flash('Blog updated successfully', 'success')
+            return redirect('/blog/{}/'.format(id))
         cur = mysql.connection.cursor()
-        title = request.form['title']
-        body = request.form['body']
-        timemodified = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        category = request.form['category']
-        cur.execute("UPDATE blogs SET title = %s, body = %s, category = %s where id = %s",(title, body, category, id))
-        mysql.connection.commit()
-        cur.close()
-        flash('Blog updated successfully', 'success')
-        return redirect('/blog/{}/'.format(id))
-    cur = mysql.connection.cursor()
-    result_value = cur.execute("SELECT * FROM blogs WHERE id = {}".format(id))
-    if result_value > 0:
-        blog = cur.fetchone()
-        blog_dict = {}
-        blog_dict['title'] = blog['title']
-        blog_dict['body'] = blog['body']
-        blog_dict['category'] = blog['category']
-        return render_template('editblog.html', blog=blog_dict)
+        result_value = cur.execute("SELECT * FROM blogs WHERE id = {}".format(id))
+        if result_value > 0:
+            blog = cur.fetchone()
+            blog_dict = {}
+            blog_dict['title'] = blog['title']
+            blog_dict['body'] = blog['body']
+            blog_dict['category'] = blog['category']
+            return render_template('editblog.html', blog=blog_dict)
+    except Exception as e:
+        logging.error("inside editblog: "+str(e))
     return render_template('editblog.html')
 
 @app.route('/deleteblog/<int:id>/', methods=['GET','POST'])
@@ -277,16 +305,19 @@ def deleteblog(id):
         flash('blog successfully deleted.','success')
         return redirect('myblogs.html')
     except Exception as e:
+        logging.error("inside deleteblog: "+str(e))
         flash('Failed to delete the blog: '+str(e), 'info')
     return redirect('myblogs.html')
 
 @app.route('/logout',methods=['GET','POST'])
 def logout():
     session.clear()
+    logging.info("user {} logged out from system".format(session['username']))
     return redirect(url_for('login'))
 
 @app.errorhandler(404)
 def page_not_found(e):
+    logging.error("An Unhandled exception has occurred: "+str(e))
     return "Page not Found: "+str(e)
 
 if __name__ == "__main__":
