@@ -28,6 +28,6 @@ Next is to Build API to access the information:
 3. Careate (POST) User Blogs after authentication
 4. update (PUT) User Blogs after authentication
 5. delete (DELETE) User Blogs after authentication
-
+6. Get(GET) user details
 
 ### development is in progress...
