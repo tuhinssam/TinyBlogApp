@@ -28,6 +28,7 @@ Next is to Build API to access the information:
 3. Create (POST) User Blogs after authentication
 4. Update (PUT) User Blogs after authentication
 5. Delete (DELETE) User Blogs after authentication
+6. Get(GET) user details
 
 
 ### development is in progress...
