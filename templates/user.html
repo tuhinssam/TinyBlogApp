@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block body %}
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">TinyBlog</a>
+      </div>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </nav>
+  <div class="jumbotron">
+      <h3>{{user.name}}</h3>
+  </div>
+  
+  <div>
+      <table class="table table-borderless">
+          <tr><td><b>Name: </b>{{user.name}}</td></tr>
+          <tr><td>{{user.introduction}}</td></tr>
+     </table>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+       <ul>
+           {% for category, msg in messages %}
+             <li class='alert alert-{{category}}'>{{msg}}</li>
+           {% endfor %}
+       </ul>
+     {% endif %}
+  {% endwith %}
+  </div>
+{% endblock %}

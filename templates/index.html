@@ -20,7 +20,13 @@
         <thead><tr><th>Blog Title</th><th>Published By</th><th>Category</th><th>Likes</th><th>Date Published</th></tr></thead>
         <tbody>
           {% for blog in blogs %}
-            <tr><td><a href="/blog/{{blog.id}}">{{blog.title}}</a></td><td>{{blog.user}}</td><td>{{blog.category}}</td><td>{{blog.likes}}</td><td>{{blog.timemodified}}</td></tr>
+            <tr>
+              <td><a href="/blog/{{blog.id}}">{{blog.title}}</a></td>
+              <td><a href="/user/{{blog.user}}">{{blog.user}}</a></td>
+              <td>{{blog.category}}</td>
+              <td>{{blog.likes}}</td>
+              <td>{{blog.timemodified}}</td>
+            </tr>
           {% endfor %}
         </tbody>  
      </table>

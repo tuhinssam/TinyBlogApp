@@ -291,9 +291,6 @@ def blog(id):
     '''
     placeholder for docstring
     '''
-    if session.get('isloggedin') != True:
-        flash("Your session has been reset. Please login to continue.",'info')
-        return redirect(url_for('login'))
     if request.method=='GET':
         try:
             cur = mysql.connection.cursor()
@@ -361,6 +358,26 @@ def deleteblog(id):
         logging.error("inside deleteblog: "+str(e))
         flash('Failed to delete the blog: '+str(e), 'info')
     return redirect('myblogs.html')
+
+@app.route('/user/<string:username>/')
+def user(username):
+    '''
+    placeholder for docstring
+    '''
+    try:
+        cur = mysql.connection.cursor()
+        querystring = "SELECT * FROM employee WHERE username = '{}'".format(username)
+        result_user = cur.execute(querystring)
+        if result_user > 0:
+            user_details = cur.fetchone()
+            cur.close()
+            flash('user details loaded successfully.','success')
+            logging.info('user details loaded successfully for user: '+str(username))
+            return render_template("user.html", user=user_details)
+    except Exception as e:
+        logging.error("inside blog: "+str(e))
+    return redirect(url_for(index))
+
 
 @app.route('/logout',methods=['GET','POST'])
 def logout():
