@@ -19,7 +19,14 @@
 2. install all the requirements using "pip install -r 'requirements.txt'"
 3. run the project using 'python app.py'
 4. Modify the database related information in db.yaml
-5. I will share db dump shortly
+5. Download the dbdump.sql file store it in a folder.
+   - go to mysql command prompt and create a database using command 'CREATE DATABASE tinyblogdb'
+   - use the database 'use tinyblogdb'
+   - open command prompt in administrative mode
+   - move to mysql installation folder (defult location is: 'C:\Program Files\MySQL\MySQL Server 8.0\bin')
+   - use following command to import the database dump: 
+     'mysql -u <username> -p <password> tinyappdb < C:\dbdump.sql'
+     
 
 ### Whats Next:
 Next is to Build API to access the information:
