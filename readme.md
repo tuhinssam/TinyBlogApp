@@ -25,17 +25,10 @@
 Next is to Build API to access the information:
 1. Basic authentication using API
 2. Read (GET) user Blogs after authentication
-<<<<<<< HEAD
 3. Careate (POST) User Blogs after authentication
 4. update (PUT) User Blogs after authentication
 5. delete (DELETE) User Blogs after authentication
 6. Get(GET) user details
-=======
-3. Create (POST) User Blogs after authentication
-4. Update (PUT) User Blogs after authentication
-5. Delete (DELETE) User Blogs after authentication
-6. Get(GET) user details
 
->>>>>>> e197839764dcbff2c496a99e76c08b0d25352e3f
 
 ### development is in progress...
