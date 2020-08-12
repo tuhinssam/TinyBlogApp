@@ -324,7 +324,7 @@ def editblog(id):
             mysql.connection.commit()
             cur.close()
             flash('Blog updated successfully', 'success')
-            return redirect('/blog/{}/'.format(id))
+            return redirect(url_for('myblogs'))
         cur = mysql.connection.cursor()
         result_value = cur.execute("SELECT * FROM blogs WHERE id = {}".format(id))
         if result_value > 0:
