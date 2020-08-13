@@ -25,7 +25,7 @@
    - open command prompt in administrative mode
    - move to mysql installation folder (defult location is: 'C:\Program Files\MySQL\MySQL Server 8.0\bin')
    - use following command to import the database dump: 
-     'mysql -u <username> -p <password> tinyappdb < C:\dbdump.sql'
+     'mysql -u <username> -p <password> tinyblogdb < C:\dbdump.sql'
      
 
 ### Whats Next:
