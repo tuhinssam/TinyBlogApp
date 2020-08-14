@@ -353,11 +353,11 @@ def deleteblog(id):
         mysql.connection.commit()
         cur.close()
         flash('blog successfully deleted.','success')
-        return redirect('myblogs.html')
+        return redirect(url_for('myblogs'))
     except Exception as e:
         logging.error("inside deleteblog: "+str(e))
         flash('Failed to delete the blog: '+str(e), 'info')
-    return redirect('myblogs.html')
+    return redirect(url_for('myblogs'))
 
 @app.route('/user/<string:username>/')
 def user(username):
