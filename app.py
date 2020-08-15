@@ -173,9 +173,14 @@ def settings():
             querystring = "SELECT * FROM employee WHERE username = '{}'".format(username)
             result_user = cur.execute(querystring)
             if result_user == 1:
-                emp = cur.fetchall()
+                emp = cur.fetchone()
                 cur.close()
-                return render_template("settings.html", employee=emp)
+                dict_settings = {}
+                dict_settings['name'] = emp['name']
+                dict_settings['usrname'] = emp['username']
+                dict_settings['age'] = emp['age']
+                dict_settings['introduction'] = emp['introduction']
+                return render_template("settings.html", employee=dict_settings)
         except Exception as e:
             logging.error("inside settings: "+str(e))
             flash("An Unexpected Exception has occurred: "+str(e),'danger')
