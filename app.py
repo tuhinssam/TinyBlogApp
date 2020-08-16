@@ -173,13 +173,13 @@ def settings():
             querystring = "SELECT * FROM employee WHERE username = '{}'".format(username)
             result_user = cur.execute(querystring)
             if result_user == 1:
-                emp = cur.fetchone()
+                employee = cur.fetchone()
                 cur.close()
                 dict_settings = {}
-                dict_settings['name'] = emp['name']
-                dict_settings['usrname'] = emp['username']
-                dict_settings['age'] = emp['age']
-                dict_settings['introduction'] = emp['introduction']
+                dict_settings['name'] = employee['name']
+                dict_settings['usrname'] = employee['username']
+                dict_settings['age'] = employee['age']
+                dict_settings['introduction'] = employee['introduction']
                 return render_template("settings.html", employee=dict_settings)
         except Exception as e:
             logging.error("inside settings: "+str(e))
@@ -197,19 +197,17 @@ def settings():
                 _name = emp[0]['password']
                 _age = emp[0]['age']
                 _introduction = emp[0]['introduction']
-            form = request.form
             username = session['username']
-            name = form['name']
-
-            oldpassword = form['oldpassword']
+            name = request.form['name']
+            oldpassword = request.form['oldpassword']
             print(oldpassword)
-            newpassword = form['newpassword']
+            newpassword = request.form['newpassword']
             print(newpassword)
-            repassword = form['repassword']
+            repassword = request.form['repassword']
             print(repassword)
-            age = form['age']
+            age = request.form['age']
             print(oldhashedpass)
-            introduction = form['introduction']
+            introduction = request.form['introduction']
             if check_password_hash(oldhashedpass,oldpassword)==False:
                 logging.warning("Current password is not valid for user: {}".format(session['username']))
                 flash("Current password is not valid!",'warning')
@@ -228,7 +226,7 @@ def settings():
                     flash("New password didn't match!",'warning')
         except Exception as e:
             logging.error("inside settings: "+str(e))
-            flash("An Unexpected Exception has occurred: "+str(e),'danger')
+            flash("An Unexpected Error has occurred: "+str(e),'danger')
     return render_template('settings.html')
 
 @app.route('/newblog',methods=['GET','POST'])
